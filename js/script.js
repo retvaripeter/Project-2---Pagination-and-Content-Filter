@@ -5,7 +5,14 @@ FSJS project 2 - List Filter and Pagination
 
 // Add variables that store DOM elements you will need to reference and/or manipulate
 
-const studentLength = document.querySelectorAll('ul li').length;
+//VARIABLES
+
+const StudentLength = document.querySelectorAll('ul li').length;
+
+const AllStudent = document.querySelectorAll('ul li');
+
+let PageToDisplay;
+
 
 // Create a function to hide all of the items in the list excpet for the ten you want to show
 
@@ -15,18 +22,18 @@ const studentLength = document.querySelectorAll('ul li').length;
 //If the number is a whole number then it's equal to the pagenumber
 //If the number is not a whole number then pagenumber = x/10+1
 
-  const pNumberDisplay = () => {
+  const getPageNumber = () => {
 
     if (studentLength < 10) {
 
       pNumberDisplay = studentLength;
 
-    } else if (studentLength.isInteger) {
+    } else if (Number.isInteger(studentLength/10)) {
 
       pNumberDisplay = studentLength/10;
     } else {
 
-      pNumberDisplay = studentLength/10 + 1;
+      pNumberDisplay = Math.ceil(studentLength/10) ;
 
     }
 
@@ -35,17 +42,19 @@ const studentLength = document.querySelectorAll('ul li').length;
 
   const showPage = (pagenumber,studentlist) => {
 
+    // first hide all students on the page
 
-}
+document.querySelector('.student-list').style.visibility = 'hidden';
 
-// first hide all students on the page
+
+
 // then loop through all students in our student list argument
 // if student should be on this page number
 // show the student
 
 // Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
 
-
+}
 
 
 
