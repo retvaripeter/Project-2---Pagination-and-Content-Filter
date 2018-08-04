@@ -3,9 +3,6 @@ Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
 
-// Add variables that store DOM elements you will need to reference and/or manipulate
-
-
 //VARIABLES
 
 const StudentLength = document.querySelectorAll('ul li').length;
@@ -34,16 +31,15 @@ let PageToDisplay;
        PageToDisplay = Math.ceil((StudentLength/10));
    }
 
-
    return PageToDisplay;
 
- }
+ } // end of get Pagenumber function
 
  // I. Display link and the actual page number at the bottom of the page
 
- //Add HTML element <div> with class="page">
+ //Add HTML element <div> with class="BigDiv" to class Page
 
- const addElement = (i) => {
+ const addPageNumber = (i) => {
 
  getPageNumber ();
 
@@ -56,7 +52,6 @@ let PageToDisplay;
       for (let i = 1; i <= PageToDisplay; i +=1) {
 
         let AnchorElement = document.createElement("a"); //create <a> element
-
 
         AnchorElement.innerHTML = i ; //add i to the <a> element
 
@@ -81,11 +76,9 @@ let PageToDisplay;
 
         for (let i = 0; i < PageToDisplay; i +=1) {
 
-          const findA1 = SelectAnchor;
-
-      findA1[i].style.color = "darkblue";
-      findA2[i].style.letterSpacing = "0px";
-      findA2[i].style.margin = "0px 2px 0px 2px";
+      SelectAnchor[i].style.color = "darkblue";
+      SelectAnchor[i].style.letterSpacing = "0px";
+      SelectAnchor[i].style.margin = "0px 2px 0px 2px";
 
     }
 
@@ -93,7 +86,7 @@ let PageToDisplay;
 
     const hideAllStudent = () => {
 
-
+//create loop that loops trough all student till the 10th and set the display to none
      for (let i = 0; i < StudentLength; i +=1) {
 
          // select the i student from AllStudent
@@ -101,4 +94,21 @@ let PageToDisplay;
 
        }
     }
-}
+} // end of addPageNumber function
+
+ // II. Show only the first 10 student and display the actual page numbers to the bottom of the page
+
+ const first10 = () => {
+
+ hideAllStudent (); //hide all student
+
+      for (let i = 0; i < 10; i +=1) { //create loop that loops trough all student till the 10th and set the display from none to block
+
+          // select the i student from AllStudent
+          AllStudent[i].style.display= "block";
+
+        }
+
+ addPageNumber(); //ad pagnumbers
+
+} // first10 function ends
