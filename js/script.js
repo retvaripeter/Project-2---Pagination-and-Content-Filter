@@ -5,6 +5,7 @@ FSJS project 2 - List Filter and Pagination
 
 // Add variables that store DOM elements you will need to reference and/or manipulate
 
+
 //VARIABLES
 
 const StudentLength = document.querySelectorAll('ul li').length;
@@ -63,51 +64,41 @@ let PageToDisplay;
 
       }
 
-      document.querySelector('.BigDiv').style.textAlign = "center"; //Put the numbers in the center
+      // create variables for selection
 
-      document.querySelector('.BigDiv').style.marginTop= "20px"; //Set margintop
+      let SelectBigDiv = document.querySelector('.BigDiv');
+      let SelectAnchor = document.querySelectorAll('.BigDiv a');
 
-      document.querySelector('.BigDiv').style.letterSpacing = "5px"; //Set letterspacing
+      SelectBigDiv.style.textAlign = "center"; //Put the numbers in the center
 
-      document.querySelector('.BigDiv').style.overflow = "auto"; //Set overflow for the case when are a lot of student, like 1781
+      SelectBigDiv.style.marginTop= "20px"; //Set margintop
 
-      /* unvisited link */
+      SelectBigDiv.style.letterSpacing = "5px"; //Set letterspacing
+
+      SelectBigDiv.style.overflow = "auto"; //Set overflow for the case when are a lot of student, like 1781
+
+      //Format the page display with DOM style, CSS property
 
         for (let i = 0; i < PageToDisplay; i +=1) {
 
-          const findA1 = document.querySelectorAll('.BigDiv a');
+          const findA1 = SelectAnchor;
 
       findA1[i].style.color = "darkblue";
+      findA2[i].style.letterSpacing = "0px";
+      findA2[i].style.margin = "0px 2px 0px 2px";
 
     }
 
-      // reduce the letterspacing from <a> with at least 2 characters
+     // Hide all students
+
+    const hideAllStudent = () => {
 
 
+     for (let i = 0; i < StudentLength; i +=1) {
 
-        for (let i = 9; i <= PageToDisplay; i +=1) {
+         // select the i student from AllStudent
+         AllStudent[i].style.display= "none";
 
-          const findA2 = document.querySelectorAll('.BigDiv a'); // select all <a> elements
-
-          findA2[i].style.letterSpacing = "0px";
-          findA2[i].style.margin = "0px 2px 0px 2px";
-
-        }
-
- 	}
-
-
-
-
- // Hide all students
-
-const hideAllStudent = () => {
-
-
- for (let i = 0; i < StudentLength; i +=1) {
-
-     // select the i student from AllStudent
-     AllStudent[i].style.display= "none";
-
-   }
+       }
+    }
 }
