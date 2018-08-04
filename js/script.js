@@ -67,37 +67,6 @@ let PageToDisplay;
 
           }
 
-        // let AnchorElement = document.createElement("a"); //create <a> element
-        //
-        // AnchorElement.innerHTML = i ; //add i to the <a> element
-        //
-        // document.querySelector('.pagination').appendChild(AnchorElement); //add Anchorelement to the BigDiv
-
-
-
-    //   // create variables for selection
-    //
-    //   let SelectBigDiv = document.querySelector('.BigDiv');
-    //   let SelectAnchor = document.querySelectorAll('.BigDiv a');
-    //
-    //   SelectBigDiv.style.textAlign = "center"; //Put the numbers in the center
-    //
-    //   SelectBigDiv.style.marginTop= "20px"; //Set margintop
-    //
-    //   SelectBigDiv.style.letterSpacing = "5px"; //Set letterspacing
-    //
-    //   SelectBigDiv.style.overflow = "auto"; //Set overflow for the case when are a lot of student, like 1781
-    //
-    //   //Format the page display with DOM style, CSS property
-    //
-    //     for (let i = 0; i < PageToDisplay; i +=1) {
-    //
-    //   SelectAnchor[i].style.color = "darkblue";
-    //   SelectAnchor[i].style.letterSpacing = "0px";
-    //   SelectAnchor[i].style.margin = "0px 2px 0px 2px";
-    //
-    // }
-
   } // end of addPageNumber function
 
      // Hide all students
