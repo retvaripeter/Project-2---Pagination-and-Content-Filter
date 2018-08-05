@@ -187,6 +187,69 @@ event.target.className = 'active';
 
                }
 
-
              }
          });
+
+ // Function for Search
+
+// Loop trough all item in array
+
+  let namelist = []; //create the namelist array
+
+  const studentNameList = document.querySelectorAll(".student-details h3"); // Put all h3 element into an array
+
+// function for search
+
+const searchForStudent = (search) => {
+
+  createNamelist();
+
+    let results = []; //create the results array
+
+            // // for (i=0;i<namelist.length;i++) {
+            //
+            // }
+              if (namelist[0] == search) {
+                alert('we have' + search+ 'in our database')
+              } else {
+                alert('nope ' + search+ 'in our database')
+              }
+            }
+
+
+
+const createNamelist = () => {
+
+
+    // Convert nodelist to an array with all elements
+
+          for (let i = 0; i < studentNameList.length; i +=1) {
+
+          namelist.push(studentNameList[i].textContent);
+
+            }
+
+}
+
+//search with jquery
+
+
+
+$(document).ready(function(){
+  $(".student-search input").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("ul li").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+
+      const visibleStudents = $( "li.student-item.cf:visible" ).length;
+
+
+    });
+
+
+
+
+  });
+
+
+});
