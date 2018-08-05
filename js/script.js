@@ -37,7 +37,7 @@ let PageToDisplay;
 
  // I. Display link and the actual page number at the bottom of the page
 
- //Add HTML element <div> with class="BigDiv" to class Page
+ //Add HTML element <div> with class="pagination" to class Page
 
  const addPageNumber = () => {
 
@@ -45,7 +45,7 @@ let PageToDisplay;
 
   let BigDiv = document.createElement("div"); //create a DIV to store all <a> elements inside
 
-  BigDiv.setAttribute('class', 'pagination'); // add class attribute: "BigDiv"
+  BigDiv.setAttribute('class', 'pagination'); // add class attribute: "pagination"
 
   document.querySelector('.page').appendChild(BigDiv); // add 'BigDiv' to DOM
 
@@ -68,6 +68,42 @@ let PageToDisplay;
           }
 
   } // end of addPageNumber function
+
+  const createSearchBar = () => {
+
+ //Add DIV tag to create a search bar dinamically
+
+ let studentSearch = document.createElement("div"); //create a DIV to store input and button element inside
+
+ studentSearch.setAttribute('class', 'student-search'); // add class attribute: "student-search"
+
+ document.querySelector('.page-header').appendChild(studentSearch); // add 'studentSearch' to DOM
+
+ const selectStudentSearch = document.querySelector('.student-search'); //select Studentsearch DOM element on the page
+
+ //Add Input tag to create a search bar dinamically
+
+ let barInput = document.createElement("input"); //create an Input element
+
+ //add attributes type and placeholder
+
+ barInput.setAttribute('type', 'text'); // tpye: 'text'
+ barInput.setAttribute('placeholder', 'Search for students...'); // tpye: 'placeholder'
+
+ selectStudentSearch.appendChild(barInput); // add 'barinput' to DOM
+
+ //Add Button tag to create a search bar dinamically
+
+ let barButton = document.createElement("button"); //create a Button element
+
+ //add attributes type and placeholder
+
+ barButton.setAttribute('type', 'submit'); // tpye: 'text'
+ barButton.innerHTML = ('Search'); // add 'search' inside button
+
+ selectStudentSearch.appendChild(barButton); // add 'barButton' to DOM
+
+} //create createSearchBar function ends
 
      // Hide all students
 
@@ -105,20 +141,52 @@ let PageToDisplay;
 
  addPageNumber(); //add pagnumbers
 
+ createSearchBar();
+
  let SelectAnchor = document.querySelectorAll('.pagination a'); //define DOM element
  let SelectBigDiv = document.querySelector('.pagination'); //define DOM element
+
+ //create function that remove active class to the current Pagenumber
+
+ const removeClass =()=> {
+
+
+   // Get all buttons with a inside the container
+   let getAllAnchor = document.querySelectorAll('.pagination a');
+
+   for (let i = 0; i < getAllAnchor.length; i +=1) {
+
+   getAllAnchor[i].className = "";
+
+     }
+
+}
+
+ // Add active class to the current button (highlight it)
+
 
  // III. If you click on the pagenumber will show the actual student to the proper page
 
     SelectBigDiv.addEventListener("click", function(event){  // If you click on each <a> tag the event listener starts.
 
          hideAllStudent();
+
          let eventContent = parseInt(event.target.textContent); // Inside event handler event.target will equal to the number of the user clicked
+
+removeClass();
+event.target.className = 'active';
 
            for (let i = (eventContent*10)-10; i < (eventContent*10); i +=1) {
 
                //select the i student from AllStudent
                AllStudent[i].style.display= "block";
+
+               if (i === (StudentLength-1)){ // if i is equal to the last student index value, exit the loop
+
+                 break;
+
+               }
+
 
              }
          });
