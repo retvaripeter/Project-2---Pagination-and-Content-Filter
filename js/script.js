@@ -5,7 +5,7 @@ FSJS project 2 - List Filter and Pagination
 
 //VARIABLES
 
-const StudentLength = document.querySelectorAll('ul li').length;
+let StudentLength = document.querySelectorAll('ul li').length;
 
 const AllStudent = document.querySelectorAll('ul li');
 
@@ -49,13 +49,13 @@ let PageToDisplay;
 
   document.querySelector('.page').appendChild(BigDiv); // add 'BigDiv' to DOM
 
-      for (let i = 1; i <= PageToDisplay; i +=1) {
+
 
           let LiElement = document.createElement("li"); //create <li> element
 
           document.querySelector('.pagination').appendChild(LiElement); //add Li elements to the BigDiv
 
-        }
+
 
         for (let j = 1; j <= PageToDisplay; j +=1) {
 
@@ -235,18 +235,23 @@ const createNamelist = () => {
 
 
 
+let visibleStudents;
+
 $(document).ready(function(){
   $(".student-search input").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("ul li").filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+       visibleStudents = $( "li.student-item.cf:visible" ).length;
 
-      const visibleStudents = $( "li.student-item.cf:visible" ).length;
+
 
 
     });
 
-
+    $(document).ready(function () {
+       $("a[value=1]").closest('div').hide();
+    });
 
 
   });
