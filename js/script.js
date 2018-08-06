@@ -213,7 +213,7 @@ event.target.className = 'active';
           Student[i].style.display = "";
       } else {
 
-          Student[i].style.display = "none";
+          Student[i].parentNode.style.display = "none";
       }
 
     }
@@ -221,9 +221,32 @@ event.target.className = 'active';
 
   }
 
+
  } //filterme function ends
 
+ $(".student-search input").keyup(function() {
+
+    if (!this.value) {
+        first10();
+    }
+
+});
+
+ // const inputIsEmpty = () => {
+ //
+ //  let input = document.querySelector(".student-search input");
+ //
+ //   if (input.value === ""){
+ //
+ //     alert('Input is empty');
+ //     first10();
+ //   }
+ //
+ // }
+
  document.querySelector(".student-search button").addEventListener("click", filterMe);
+
+ // document.querySelector(".student-search input").addEventListener("onkeyup", inputIsEmpty);
 
 
 
