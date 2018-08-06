@@ -191,65 +191,100 @@ event.target.className = 'active';
 
  // Functions for Search
 
-// Loop trough all item in array
+ // Filter method with JS - create function which hide all elements except that we're looking for
 
-  let namelist = []; //create the namelist array
-  let results = []; //create the results array
-  let mySplittedArray = []; //create the mysplitted array to search for first and lastname
+ const filterMe = () => {
 
-  let mySplitResults;
+   let Input, Filter, Student, Details, i;
 
-  const studentNameList = document.querySelectorAll(".student-details h3"); // Select and put all h3 element into a variable
+// select the DOM elements with the defined variables
 
+   Input = document.querySelector(".student-search input");
+   Filter = input.value.toUpperCase();
+   Student = document.querySelectorAll(".student-details");
 
-  const createNamelist = () => {
+  for(i=0; i < Student.length; i+=1) {
 
+    Details = Student[i].getElementsByTagName("h3");
+    if (Details) {
+      if (Details.innerHTML.toUpperCase().indexOf(Filter) > -1) {
 
-      // Convert nodelist to an array with all elements
+          Student[i].style.display = "";
+      } else {
 
-            for (let i = 0; i < studentNameList.length; i +=1) {
-
-            namelist.push(studentNameList[i].textContent);
-
-              }
-
-      // Split array elements into first and last name and
-      // put it into mySplittedArray
-
-          for (let i = 0; i < namelist.length; i+=1){
-
-            mySplitResults = namelist[i].split(" ");
-            mySplittedArray.push(mySplitResults[0]); //the variable can display it separately with index value
-            mySplittedArray.push(mySplitResults[1]);
-
-          }
-
-  }
-
-  //search in mysplitted mySplittedArray and put each result to the result array
-
-  // !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
-
-const searchInSplitted = (usersearch) => {
-
-
-
-  for (let i=0; i < mySplittedArray.length; i+=1){
-
-      if (usersearch === mySplittedArray[i]) {
-
-          results.push(usersearch); // !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
-
-      } else if (results.length === 0 && i === (mySplittedArray.length-1)){
-
-        alert ("Sorry we don't have this student");
+          Student[i].style.display = "none";
       }
 
+    }
+
 
   }
 
-// !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
-}
+ } //filterme function ends
+
+
+
+
+
+// // Loop trough all item in array
+//
+//   let namelist = []; //create the namelist array
+//   let results = []; //create the results array
+//   let mySplittedArray = []; //create the mysplitted array to search for first and lastname
+//
+//   let mySplitResults;
+//
+//   const studentNameList = document.querySelectorAll(".student-details h3"); // Select and put all h3 element into a variable
+//
+//
+//   const createNamelist = () => {
+//
+//
+//       // Convert nodelist to an array with all elements
+//
+//             for (let i = 0; i < studentNameList.length; i +=1) {
+//
+//             namelist.push(studentNameList[i].textContent);
+//
+//               }
+//
+//       // Split array elements into first and last name and
+//       // put it into mySplittedArray
+//
+//           for (let i = 0; i < namelist.length; i+=1){
+//
+//             mySplitResults = namelist[i].split(" ");
+//             mySplittedArray.push(mySplitResults[0]); //the variable can display it separately with index value
+//             mySplittedArray.push(mySplitResults[1]);
+//
+//           }
+//
+//   }
+//
+//   //search in mysplitted mySplittedArray and put each result to the result array
+//
+//   // !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
+//
+// const searchInSplitted = (usersearch) => {
+//
+//
+//
+//   for (let i=0; i < mySplittedArray.length; i+=1){
+//
+//       if (usersearch === mySplittedArray[i]) {
+//
+//           results.push(usersearch); // !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
+//
+//       } else if (results.length === 0 && i === (mySplittedArray.length-1)){
+//
+//         alert ("Sorry we don't have this student");
+//       }
+//
+//
+//   }
+//
+// // !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
+// }
 
 // use the mysplitted array to find the indexvalue of result
 
