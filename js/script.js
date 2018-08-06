@@ -164,7 +164,6 @@ let PageToDisplay;
 
  // Add active class to the current button (highlight it)
 
-
  // III. If you click on the pagenumber will show the actual student to the proper page
 
     SelectBigDiv.addEventListener("click", function(event){  // If you click on each <a> tag the event listener starts.
@@ -231,30 +230,27 @@ const createNamelist = () => {
 
 }
 
-//search with jquery
-
-
-
-let visibleStudents;
-
-$(document).ready(function(){
-  $(".student-search input").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("ul li").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-       visibleStudents = $( "li.student-item.cf:visible" ).length;
-
-
-
-
-    });
-
-    $(document).ready(function () {
-       $("a[value=1]").closest('div').hide();
-    });
-
-
-  });
-
-
-});
+// //search with jquery
+//
+// let visibleStudents;
+//
+// $(document).ready(function(){
+//   $(".student-search input").on("keyup", function() {
+//     var value = $(this).val().toLowerCase();
+//     $("ul li").filter(function() {
+//       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+//
+//         })
+//
+//        visibleStudents = $( "li.student-item.cf:visible" ).length;
+//
+//        for (let i = 0; i < document.querySelectorAll('.pagination a').length; i +=1) {
+//
+//                    if (visibleStudents < 6) {
+//
+//                  $(document.querySelectorAll('.pagination a')[i+1]).hide();
+//                }
+//
+//          }
+//           });
+//     });
