@@ -124,7 +124,6 @@ let PageToDisplay;
 
  hideAllStudent (); //hide all student
 
- let SelectAnchor = document.querySelectorAll('.pagination a');
 
       for (let i = 0; i < 10; i +=1) { //create loop that loops trough all student till the 10th and set the display from none to block
 
@@ -132,6 +131,20 @@ let PageToDisplay;
           AllStudent[i].style.display= "block";
 
         }
+
+} // first10 function ends
+
+const showAllStudent = () => {
+
+hideAllStudent (); //hide all student
+
+
+     for (let i = 0; i < StudentLength; i +=1) { //create loop that loops trough all student till the 10th and set the display from none to block
+
+         // select the i student from AllStudent
+         AllStudent[i].style.display= "block";
+
+       }
 
 } // first10 function ends
 
@@ -194,6 +207,8 @@ event.target.className = 'active';
  // Filter method with JS - create function which hide all elements except that we're looking for
 
  const filterMe = () => {
+
+   showAllStudent();
 
    let Input, Filter, Student, Details, i;
 
