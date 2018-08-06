@@ -11,37 +11,44 @@ const AllStudent = document.querySelectorAll('ul li');
 
 let PageToDisplay;
 
+let visibleArray = [];
+
+
+
 //FUNCTIONS
 
  //Show me the proper page number regarding the students
 
- const getPageNumber = () => {
+ const getPageNumber = (length) => {
 
-   if (StudentLength <10) {
+   if (length <10) {
 
        PageToDisplay = 1;
 
-   } else if (Number.isInteger(StudentLength / 10))  {
+   } else if (Number.isInteger(length / 10))  {
 
 
-       PageToDisplay = StudentLength/10;
+       PageToDisplay = length/10;
 
    } else {
 
-       PageToDisplay = Math.ceil((StudentLength/10));
+       PageToDisplay = Math.ceil((length/10));
    }
 
    return PageToDisplay;
 
- } // end of get Pagenumber function
+ }
+
+ getPageNumber (StudentLength);
+
+ // end of get Pagenumber function
 
  // I. Display link and the actual page number at the bottom of the page
 
  //Add HTML element <div> with class="pagination" to class Page
 
- const addPageNumber = () => {
+ const addPageNumber = (page) => {
 
- getPageNumber ();
 
   let BigDiv = document.createElement("div"); //create a DIV to store all <a> elements inside
 
@@ -57,7 +64,7 @@ let PageToDisplay;
 
 
 
-        for (let j = 1; j <= PageToDisplay; j +=1) {
+        for (let j = 1; j <= page; j +=1) {
 
             let AnchorElement = document.createElement("a"); //create <li> element
 
@@ -68,6 +75,25 @@ let PageToDisplay;
           }
 
   } // end of addPageNumber function
+
+  const reBuildPageNumber = (length) => {
+
+    let divToRemove = document.querySelector('.pagination');
+    document.querySelector('.page').removeChild(divToRemove);
+
+    getPageNumber (length);
+    addPageNumber(PageToDisplay);
+
+  }
+
+  const removePagnumber = () => {
+
+    let divToRemove = document.querySelector('.pagination');
+    document.querySelector('.page').removeChild(divToRemove);
+
+
+  }
+
 
   const createSearchBar = () => {
 
@@ -146,13 +172,24 @@ hideAllStudent (); //hide all student
 
        }
 
-} // first10 function ends
+} // showAllStudent function ends
+
+
+const visibleStudentsLength = () => {
+
+
+let visibleStudents = $( "li.student-item.cf:visible" ).length;
+
+return visibleStudents;
+
+} // visibleStudentsLength function ends
+
 
 //Program starts
 
  first10(); //hide all students and add the first 10
 
- addPageNumber(); //add pagnumbers
+ addPageNumber(PageToDisplay); //add pagnumbers
 
  createSearchBar();
 
@@ -179,6 +216,8 @@ hideAllStudent (); //hide all student
 
  // III. If you click on the pagenumber will show the actual student to the proper page
 
+ const buildClick = (student, length) => {
+
     SelectBigDiv.addEventListener("click", function(event){  // If you click on each <a> tag the event listener starts.
 
          hideAllStudent();
@@ -188,12 +227,14 @@ hideAllStudent (); //hide all student
 removeClass();
 event.target.className = 'active';
 
+// now we show the student regarding the number we clicked
+
            for (let i = (eventContent*10)-10; i < (eventContent*10); i +=1) {
 
                //select the i student from AllStudent
-               AllStudent[i].style.display= "block";
+               student[i].style.display= "block";
 
-               if (i === (StudentLength-1)){ // if i is equal to the last student index value, exit the loop
+               if (i === (length-1)){ // if i is equal to the last student index value, exit the loop
 
                  break;
 
@@ -201,6 +242,24 @@ event.target.className = 'active';
 
              }
          });
+}
+
+buildClick(AllStudent, StudentLength);
+
+//get visible student on page
+
+const getVisibleStudents = () => {
+
+    for (let i = 0; i < AllStudent.length; i+=1) {
+
+      if (AllStudent[i].offsetParent !== null) {
+
+          visibleArray.push(AllStudent[i]);
+      }
+
+    }
+
+}
 
  // Functions for Search
 
@@ -221,7 +280,7 @@ event.target.className = 'active';
   for(i=0; i < Student.length; i+=1) {
 
     Details = Student[i].getElementsByTagName("h3")[0];
-    console.log(Details.textContent);
+
     if (Details) {
       if (Details.innerHTML.toUpperCase().indexOf(Filter) > -1) {
 
@@ -233,147 +292,140 @@ event.target.className = 'active';
 
     }
 
-
   }
 
+  //if the input area is empty show the first 10 student from FROM THE ORIGINAL studentlist
 
- } //filterme function ends
+$(".student-search input").keyup(function() {
 
- $(".student-search input").keyup(function() {
+   if (!this.value) {
 
-    if (!this.value) {
-        first10();
+     removePagnumber();
+     hideAllStudent();
+
+     //get the pagetodisplay from the original studentlength
+     getPageNumber (StudentLength);
+
+     addPageNumber(PageToDisplay); //add pagnumbers
+
+     first10();
+
+     const buildClickBack = (student, length) => {
+
+        document.querySelector(".pagination li").addEventListener("click", function(event){  // If you click on each <a> tag the event listener starts.
+
+             hideAllStudent();
+
+             let eventContent = parseInt(event.target.textContent); // Inside event handler event.target will equal to the number of the user clicked
+
+    removeClass();
+    event.target.className = 'active';
+
+    // now we show the student regarding the number we clicked
+
+               for (let i = (eventContent*10)-10; i < (eventContent*10); i +=1) {
+
+                   //select the i student from AllStudent
+                   student[i].style.display= "block";
+
+                   if (i === (length-1)){ // if i is equal to the last student index value, exit the loop
+
+                     break;
+
+                   }
+
+                 }
+             });
     }
+
+     buildClickBack(AllStudent, StudentLength);
+
+     visibleArray = [];
+
+   }
 
 });
 
- // const inputIsEmpty = () => {
- //
- //  let input = document.querySelector(".student-search input");
- //
- //   if (input.value === ""){
- //
- //     alert('Input is empty');
- //     first10();
- //   }
- //
- // }
+getVisibleStudents();
+
+hideAllStudent(); // don't forget to unhide regarding the visibleArray
+
+removePagnumber();
+
+getPageNumber(visibleArray.length); //get the pagenumber to display
+
+addPageNumber(PageToDisplay); // display proper pagenumbers
+
+//visible the first 10 student regarding the visible visibleArray
+
+const first10Visible = () => {
+
+
+  for (let i = 0; i < 10; i +=1) { //create loop that loops trough all student till the 10th and set the display from none to block
+
+         // select the i student from AllStudent
+         if (visibleArray.length === 0 ) {
+alert("Terribly sorry, but we don't have " + Input.value.toUpperCase() + " in our database. Please type a new search with another name.");
+
+             break;
+         } else if (i === visibleArray.length){
+
+           break;
+         }
+
+
+         else {
+         visibleArray[i].style.display= "block";
+         }
+       }
+
+}
+
+first10Visible();
+
+//display the students on the proper page number
+
+
+const buildClickVisible = (student, length) => {
+
+   document.querySelector(".pagination li").addEventListener("click", function(event){  // If you click on each <a> tag the event listener starts.
+
+hideAllStudent(); // don't forget to unhide regarding the visibleArray
+
+        let eventContent = parseInt(event.target.textContent); // Inside event handler event.target will equal to the number of the user clicked
+
+removeClass();
+event.target.className = 'active';
+
+// now we show the student regarding the number we clicked
+
+          for (let i = (eventContent*10)-10; i < (eventContent*10); i +=1) {
+
+              //select the i student from AllStudent
+              student[i].style.display= "block";
+
+              if (i === (length-1)){ // if i is equal to the last student index value, exit the loop
+
+                break;
+
+              }
+
+            }
+        });
+}
+
+buildClickVisible(visibleArray, visibleArray.length);
+
+//get the proper pagenumber regarding the length of visibleArray
+
+
+
+
+// build the pagenumbers regarding the length of visible studentSearch
+
+ } //filterme function ends
+
+
+ //add event listeners to the button
 
  document.querySelector(".student-search button").addEventListener("click", filterMe);
-
- // document.querySelector(".student-search input").addEventListener("onkeyup", inputIsEmpty);
-
-
-
-
-
-// // Loop trough all item in array
-//
-//   let namelist = []; //create the namelist array
-//   let results = []; //create the results array
-//   let mySplittedArray = []; //create the mysplitted array to search for first and lastname
-//
-//   let mySplitResults;
-//
-//   const studentNameList = document.querySelectorAll(".student-details h3"); // Select and put all h3 element into a variable
-//
-//
-//   const createNamelist = () => {
-//
-//
-//       // Convert nodelist to an array with all elements
-//
-//             for (let i = 0; i < studentNameList.length; i +=1) {
-//
-//             namelist.push(studentNameList[i].textContent);
-//
-//               }
-//
-//       // Split array elements into first and last name and
-//       // put it into mySplittedArray
-//
-//           for (let i = 0; i < namelist.length; i+=1){
-//
-//             mySplitResults = namelist[i].split(" ");
-//             mySplittedArray.push(mySplitResults[0]); //the variable can display it separately with index value
-//             mySplittedArray.push(mySplitResults[1]);
-//
-//           }
-//
-//   }
-//
-//   //search in mysplitted mySplittedArray and put each result to the result array
-//
-//   // !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
-//
-// const searchInSplitted = (usersearch) => {
-//
-//
-//
-//   for (let i=0; i < mySplittedArray.length; i+=1){
-//
-//       if (usersearch === mySplittedArray[i]) {
-//
-//           results.push(usersearch); // !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
-//
-//       } else if (results.length === 0 && i === (mySplittedArray.length-1)){
-//
-//         alert ("Sorry we don't have this student");
-//       }
-//
-//
-//   }
-//
-// // !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
-// }
-
-// use the mysplitted array to find the indexvalue of result
-
-//   // Create a variable that contains a string
-// var myString = "Mr. Jack Adams";
-// // Create a variable to contain the array
-// var mySplitResult;
-//
-// mySplitResult = myString.split(" ");
-
-  // const searchForStudent = (search) => {
-  //
-  //   createNamelist();
-  //
-  //
-  //
-  //             // // for (i=0;i<namelist.length;i++) {
-  //             //
-  //             // }
-  //               if (namelist[0] == search) {
-  //                 alert('we have' + search+ 'in our database')
-  //               } else {
-  //                 alert('nope ' + search+ 'in our database')
-  //               }
-  //             }
-
-
-// //search with jquery
-//
-// let visibleStudents;
-//
-// $(document).ready(function(){
-//   $(".student-search input").on("keyup", function() {
-//     var value = $(this).val().toLowerCase();
-//     $("ul li").filter(function() {
-//       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-//
-//         })
-//
-//        visibleStudents = $( "li.student-item.cf:visible" ).length;
-//
-//        for (let i = 0; i < document.querySelectorAll('.pagination a').length; i +=1) {
-//
-//                    if (visibleStudents < 6) {
-//
-//                  $(document.querySelectorAll('.pagination a')[i+1]).hide();
-//                }
-//
-//          }
-//           });
-//     });
