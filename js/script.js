@@ -200,12 +200,13 @@ event.target.className = 'active';
 // select the DOM elements with the defined variables
 
    Input = document.querySelector(".student-search input");
-   Filter = input.value.toUpperCase();
+   Filter = Input.value.toUpperCase();
    Student = document.querySelectorAll(".student-details");
 
   for(i=0; i < Student.length; i+=1) {
 
-    Details = Student[i].getElementsByTagName("h3");
+    Details = Student[i].getElementsByTagName("h3")[0];
+    console.log(Details.textContent);
     if (Details) {
       if (Details.innerHTML.toUpperCase().indexOf(Filter) > -1) {
 
@@ -221,6 +222,8 @@ event.target.className = 'active';
   }
 
  } //filterme function ends
+
+ document.querySelector(".student-search button").addEventListener("click", filterMe);
 
 
 
