@@ -189,46 +189,93 @@ event.target.className = 'active';
              }
          });
 
- // Function for Search
+ // Functions for Search
 
 // Loop trough all item in array
 
   let namelist = []; //create the namelist array
+  let results = []; //create the results array
+  let mySplittedArray = []; //create the mysplitted array to search for first and lastname
 
-  const studentNameList = document.querySelectorAll(".student-details h3"); // Put all h3 element into an array
+  let mySplitResults;
 
-// function for search
+  const studentNameList = document.querySelectorAll(".student-details h3"); // Select and put all h3 element into a variable
 
-const searchForStudent = (search) => {
 
-  createNamelist();
+  const createNamelist = () => {
 
-    let results = []; //create the results array
 
-            // // for (i=0;i<namelist.length;i++) {
-            //
-            // }
-              if (namelist[0] == search) {
-                alert('we have' + search+ 'in our database')
-              } else {
-                alert('nope ' + search+ 'in our database')
+      // Convert nodelist to an array with all elements
+
+            for (let i = 0; i < studentNameList.length; i +=1) {
+
+            namelist.push(studentNameList[i].textContent);
+
               }
-            }
+
+      // Split array elements into first and last name and
+      // put it into mySplittedArray
+
+          for (let i = 0; i < namelist.length; i+=1){
+
+            mySplitResults = namelist[i].split(" ");
+            mySplittedArray.push(mySplitResults[0]); //the variable can display it separately with index value
+            mySplittedArray.push(mySplitResults[1]);
+
+          }
+
+  }
+
+  //search in mysplitted mySplittedArray and put each result to the result array
+
+  // !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
+
+const searchInSplitted = (usersearch) => {
 
 
 
-const createNamelist = () => {
+  for (let i=0; i < mySplittedArray.length; i+=1){
+
+      if (usersearch === mySplittedArray[i]) {
+
+          results.push(usersearch); // !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
+
+      } else if (results.length === 0 && i === (mySplittedArray.length-1)){
+
+        alert ("Sorry we don't have this student");
+      }
 
 
-    // Convert nodelist to an array with all elements
+  }
 
-          for (let i = 0; i < studentNameList.length; i +=1) {
-
-          namelist.push(studentNameList[i].textContent);
-
-            }
-
+// !!!!!!! IF YOU START A NEW SEARCH DON'T FORGET TO DELETE THE CONTENT OF RESULTS!!!! !!!!!!!
 }
+
+// use the mysplitted array to find the indexvalue of result
+
+//   // Create a variable that contains a string
+// var myString = "Mr. Jack Adams";
+// // Create a variable to contain the array
+// var mySplitResult;
+//
+// mySplitResult = myString.split(" ");
+
+  // const searchForStudent = (search) => {
+  //
+  //   createNamelist();
+  //
+  //
+  //
+  //             // // for (i=0;i<namelist.length;i++) {
+  //             //
+  //             // }
+  //               if (namelist[0] == search) {
+  //                 alert('we have' + search+ 'in our database')
+  //               } else {
+  //                 alert('nope ' + search+ 'in our database')
+  //               }
+  //             }
+
 
 // //search with jquery
 //
