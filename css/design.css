@@ -117,3 +117,13 @@ body{
       background-color: #4ba6c3;
       color: #fff;
     }
+
+  .message {
+
+    margin: 20px;
+    text-align: center;
+    border: 1px solid rgb(223, 13, 76);
+    padding: 10px;
+    border-radius: 5px;
+
+  }
