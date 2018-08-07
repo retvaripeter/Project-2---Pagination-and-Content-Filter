@@ -19,7 +19,7 @@ let visibleArray = [];
 
  const getPageNumber = (length) => {
 
-   //we weill use PageToDisplay value for the pagination. If the number of student less then 10, then the value is 1 and so on..
+   //we will use PageToDisplay value for the pagination. If the number of student less then 10, then the value is 1 and so on..
 
    if (length <10) { // length means the original number of student or after search the visible studentnumber
 
