@@ -10,3 +10,5 @@ Should work with every browser.
 Unobstrusive JavaScript:
 
 This means that any content or functionality related to JavaScript should be added programmatically by JavaScript. For this project, that means, the pagination buttons and the (optional) search shouldn't be added directly to the index.html file. You need to use JavaScript to add them.
+
+FOR MORE DEATAILS PLEASE SEE THE COMMENT IN THE JS. FILE.
