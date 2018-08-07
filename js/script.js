@@ -174,17 +174,6 @@ hideAllStudent (); //hide all student
 
 } // showAllStudent function ends
 
-
-const visibleStudentsLength = () => {
-
-
-let visibleStudents = $( "li.student-item.cf:visible" ).length;
-
-return visibleStudents;
-
-} // visibleStudentsLength function ends
-
-
 //Program starts
 
  first10(); //hide all students and add the first 10
